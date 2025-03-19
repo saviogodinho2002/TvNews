@@ -19,6 +19,15 @@ public class NewsPaper extends RepresentationModel<NewsPaper> implements Seriali
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "producer_id")
+    private Person producer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reporter_id")
+    private Person reporter;
+
+
     @Temporal(TemporalType.TIMESTAMP) // Data e hora
     @Column( name="created_at", nullable=false)
     private Date createdAt;
@@ -30,7 +39,7 @@ public class NewsPaper extends RepresentationModel<NewsPaper> implements Seriali
     @Column( name="execution_time", nullable=false)
     private LocalTime executionTime;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     public UUID getId() {
@@ -71,6 +80,22 @@ public class NewsPaper extends RepresentationModel<NewsPaper> implements Seriali
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Person getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Person producer) {
+        this.producer = producer;
+    }
+
+    public Person getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(Person reporter) {
+        this.reporter = reporter;
     }
 
     @PrePersist
