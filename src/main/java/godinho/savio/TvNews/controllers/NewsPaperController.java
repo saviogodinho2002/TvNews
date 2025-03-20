@@ -3,6 +3,7 @@ package godinho.savio.TvNews.controllers;
 import godinho.savio.TvNews.Models.NewsPaper;
 import godinho.savio.TvNews.dtos.NewsPaperRecordDto;
 import godinho.savio.TvNews.repositories.NewsPaperRepository;
+import godinho.savio.TvNews.services.NewsPaperService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class NewsPaperController {
     NewsPaperRepository newsPaper;
     @Autowired
     private NewsPaperRepository newsPaperRepository;
-
+    @Autowired
+    private NewsPaperService newsPaperService;
 
     @PostMapping("/news_papers")
     public ResponseEntity<NewsPaper> store(@RequestBody @Valid NewsPaperRecordDto newsPaperDto){//validate
@@ -37,8 +39,8 @@ public class NewsPaperController {
     }
     @GetMapping("/news_papers")
     public ResponseEntity<List<NewsPaper>> getByDescription(@RequestParam(required = false) String description){
-        List<NewsPaper> newsPaperList = newsPaper.getAndSearchByDescriptionIfNotNull(description);
-        for (NewsPaper newsPaper : newsPaperList) {
+        List<NewsPaper> newsPaperList = newsPaperService.getByDescription(description);
+        /*for (NewsPaper newsPaper : newsPaperList) {
             //faz um map e adiciona uma propriedade que é o link (pegando do proprio controller)
             //para o findByIdNoCaso
             UUID id = newsPaper.getId();
@@ -53,7 +55,7 @@ public class NewsPaperController {
                             WebMvcLinkBuilder.methodOn(NewsPaperController.class).destroy(id)
                     ).withSelfRel().withName("urlToDestroy")
             );
-        }
+        }*/
         return ResponseEntity.status(HttpStatus.OK).body(newsPaperList);
     }
     @GetMapping("/news_papers/{id}")

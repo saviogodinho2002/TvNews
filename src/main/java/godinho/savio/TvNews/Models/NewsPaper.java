@@ -20,26 +20,26 @@ public class NewsPaper extends RepresentationModel<NewsPaper> implements Seriali
     private UUID id;
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "producer_id")
+    @JoinColumn(name = "producer_id", nullable = true)
     private Person producer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "reporter_id")
+    @JoinColumn(name = "reporter_id", nullable = true)
     private Person reporter;
 
 
     @Temporal(TemporalType.TIMESTAMP) // Data e hora
-    @Column( name="created_at", nullable=false)
+    @Column( name="created_at", nullable=true)
     private Date createdAt;
 
     @Temporal(TemporalType.DATE)
-    @Column( name="execution_date", nullable=false)
+    @Column( name="execution_date", nullable=true)
    private Date executionDate;
 
-    @Column( name="execution_time", nullable=false)
+    @Column( name="execution_time", nullable=true)
     private LocalTime executionTime;
 
-    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "description", nullable = true, columnDefinition = "TEXT")
     private String description;
 
     public UUID getId() {
