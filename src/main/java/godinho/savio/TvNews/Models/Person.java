@@ -26,7 +26,7 @@ public class Person extends RepresentationModel<Person> implements Serializable 
     @Column(nullable = true)
     private String phone;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private String email;
 
     @Temporal(TemporalType.TIMESTAMP)
