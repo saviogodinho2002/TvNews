@@ -6,11 +6,10 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class NewsPaperSpecification {
 
-    public static Specification<NewsPaper> filterByDescription(String description) {
+    public static Specification<NewsPaper> filterByDescriptionIfNotEmpty(String description) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
 

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class NewsPaperService {
@@ -18,7 +17,7 @@ public class NewsPaperService {
     }
 
     public List<NewsPaper> getByDescription(String description) {
-        Specification<NewsPaper> spec = NewsPaperSpecification.filterByDescription(description);
+        Specification<NewsPaper> spec = NewsPaperSpecification.filterByDescriptionIfNotEmpty(description);
         return newsPaperRepository.findAll(spec);
     }
 
